@@ -64,6 +64,33 @@
             <p class="text-muted small">*Untuk mengubah data alamat/kontak, silakan edit melalui file Controller/View utama.</p>
         </div>
     </div>
+
+    <div class="card mb-4 shadow-sm">
+    <div class="card-header"><strong>Manajemen Profil Kost</strong></div>
+    <div class="card-body">
+        <form action="/admin/updateSettings" method="post">
+            <div class="mb-3">
+                <label>Alamat Kost</label>
+                [cite_start]<input type="text" name="settings[address]" class="form-control" value="<?= $address ?>"> [cite: 1, 3]
+            </div>
+            <div class="mb-3">
+                <label>No HP Pak Raji (Format: 628...)</label>
+                [cite_start]<input type="text" name="settings[phone]" class="form-control" value="<?= $phone ?>"> [cite: 1, 3]
+            </div>
+            <button class="btn btn-primary">Update Profil</button>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-danger">
+    <div class="card-header bg-danger text-white"><strong>Keamanan Akun</strong></div>
+    <div class="card-body">
+        <form action="/admin/updatePassword" method="post">
+            <input type="password" name="new_password" class="form-control mb-2" placeholder="Password Baru">
+            <button class="btn btn-danger">Ubah Password</button>
+        </form>
+    </div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -33,4 +33,23 @@ class Dashboard extends BaseController
 
         return redirect()->to('/admin')->with('success', 'Data kamar berhasil diperbarui!');
     }
+
+    // Update Info Kost (Alamat/Kontak)
+public function updateSettings() {
+    $db = \Config\Database::connect();
+    foreach ($this->request->getPost('settings') as $key => $value) {
+        $db->table('settings')->where('key', $key)->update(['value' => $value]);
+    }
+    return redirect()->back()->with('success', 'Profil kost diperbarui!');
+}
+
+// Update Password Admin
+public function updatePassword() {
+    $model = new \App\Models\UserModel();
+    $newPass = $this->request->getPost('new_password');
+    $model->where('username', session()->get('username'))
+          ->set(['password' => password_hash($newPass, PASSWORD_DEFAULT)])
+          ->update();
+    return redirect()->back()->with('success', 'Password berhasil diubah!');
+}
 }
