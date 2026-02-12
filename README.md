@@ -138,5 +138,3 @@ Gunakan akun berikut untuk masuk ke Dashboard Admin (`/login`):
 
 
 ---
-
-**Apakah ada bagian lain dari dokumentasi ini yang ingin Anda tambahkan, seperti daftar teknologi (Bootstrap, PHP 8, dll)?**

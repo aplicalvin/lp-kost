@@ -14,181 +14,199 @@
 
 
     <style>
-:root {
-    --primary: #0f172a;
-    --primary-soft: #1e293b;
-    --accent: #22c55e;
-    --accent-dark: #16a34a;
-    --soft-bg: #f8fafc;
-    --text-dark: #0f172a;
-}
+        :root {
+            --primary: #0b0f1a;
+            --secondary: #111827;
+            --gold: #d4af37;
+            --gold-soft: #f5e6b3;
+            --light-bg: #f9fafb;
+            --text-dark: #1f2937;
+        }
 
-body {
-    font-family: 'Kanit', sans-serif;
-    color: var(--text-dark);
-    background: #ffffff;
-    scroll-behavior: smooth;
-}
+        /* GLOBAL */
+        body {
+            font-family: 'Kanit', sans-serif;
+            color: var(--text-dark);
+            background: #ffffff;
+            scroll-behavior: smooth;
+        }
 
-h1, h2, h3 {
-    font-weight: 600;
-    letter-spacing: -0.5px;
-}
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
 
-/* ================= NAVBAR ================= */
-.navbar {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 20px 0;
-}
+        h2 {
+            position: relative;
+            display: inline-block;
+        }
 
-.navbar-brand {
-    font-weight: 600;
-    font-size: 1.3rem;
-}
+        h2::after {
+            content: "";
+            width: 60%;
+            height: 3px;
+            background: var(--gold);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 5px;
+        }
 
-.nav-link {
-    color: #cbd5e1 !important;
-    margin-left: 15px;
-    transition: 0.3s;
-}
+        /* NAVBAR */
+        .navbar {
+            background: rgba(11, 15, 26, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 18px 0;
+        }
 
-.nav-link:hover {
-    color: white !important;
-}
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--gold) !important;
+            letter-spacing: 1px;
+        }
 
-/* ================= HERO ================= */
-.hero {
-    background: radial-gradient(circle at top right, #1e293b, #0f172a);
-    color: white;
-    padding: 150px 0 130px 0;
-}
+        .nav-link {
+            color: #cbd5e1 !important;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
 
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
-}
+        .nav-link:hover {
+            color: var(--gold) !important;
+        }
 
-.hero p {
-    font-size: 1.1rem;
-    color: #cbd5e1;
-}
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0b0f1a, #1f2937);
+            color: white;
+            padding: 170px 0 150px 0;
+        }
 
-.btn-accent {
-    background: var(--accent);
-    color: white;
-    padding: 14px 32px;
-    border-radius: 50px;
-    font-weight: 500;
-    border: none;
-    transition: all 0.3s ease;
-}
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+        }
 
-.btn-accent:hover {
-    background: var(--accent-dark);
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(34,197,94,0.3);
-}
+        .hero p {
+            font-size: 1.1rem;
+            color: #d1d5db;
+        }
 
-/* ================= SECTION ================= */
-section {
-    padding: 100px 0;
-}
+        /* BUTTON PREMIUM */
+        .btn-accent {
+            background: linear-gradient(135deg, var(--gold), #b8962e);
+            color: #111;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
 
-.section-light {
-    background: var(--soft-bg);
-}
+        .btn-accent:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(212,175,55,0.4);
+        }
 
-/* ================= FASILITAS ================= */
-.facility-box {
-    background: white;
-    padding: 30px 20px;
-    border-radius: 20px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 1px solid #f1f5f9;
-}
+        /* SECTION */
+        section {
+            padding: 110px 0;
+        }
 
-.facility-box:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-}
+        .section-light {
+            background: var(--light-bg);
+        }
 
-/* ================= MODERN FACILITY ================= */
-.facility-modern {
-    background: white;
-    padding: 40px 25px;
-    border-radius: 24px;
-    transition: all 0.3s ease;
-    border: 1px solid #f1f5f9;
-    height: 100%;
-}
+        /* FACILITY */
+        .facility-modern {
+            background: white;
+            padding: 45px 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgb(212,175,55);
+            height: 100%;
+        }
 
-.facility-modern i {
-    font-size: 32px;
-    color: var(--accent);
-    margin-bottom: 20px;
-}
+        .facility-modern i {
+            font-size: 36px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
 
-.facility-modern h5 {
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
+        .facility-modern h5 {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
 
-.facility-modern p {
-    font-size: 0.95rem;
-    color: #64748b;
-    margin-bottom: 0;
-}
+        .facility-modern p {
+            font-size: 0.95rem;
+            color: #6b7280;
+        }
 
-.facility-modern:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-}
+        .facility-modern:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+        }
 
+        /* ROOM CARD */
+        .room-card {
+            border-radius: 25px;
+            padding: 50px 35px;
+            background: white;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
 
-/* ================= ROOM CARD ================= */
-.room-card {
-    border-radius: 24px;
-    padding: 45px 35px;
-    background: white;
-    transition: all 0.3s ease;
-    border: 1px solid #f1f5f9;
-}
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+        }
 
-.room-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-}
+        .room-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
 
-.room-title {
-    font-size: 1.7rem;
-    font-weight: 600;
-}
+        .room-card h4 {
+            color: var(--gold);
+            font-weight: 600;
+        }
 
-/* ================= TESTIMONIAL ================= */
-blockquote {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    border-left: 4px solid var(--accent);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
+        /* TESTIMONIAL */
+        blockquote {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            border-left: 4px solid var(--gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
 
-/* ================= MAP SECTION ================= */
-.map-section {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
-}
+        /* GALLERY */
+        .card-img-top {
+            border-radius: 15px;
+            transition: 0.4s ease;
+        }
 
-/* ================= FOOTER ================= */
-footer {
-    background: #0f172a;
-    color: #94a3b8;
-    font-size: 0.9rem;
-}
-</style>
+        .card-img-top:hover {
+            transform: scale(1.05);
+        }
+
+        /* MAP */
+        .map-section {
+            background: linear-gradient(135deg, #0b0f1a, #1f2937);
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0b0f1a;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+    </style>
 
 
 </head>
@@ -206,6 +224,7 @@ footer {
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#fasilitas">Fasilitas</a></li>
                 <li class="nav-item"><a class="nav-link" href="#kamar">Kamar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                 <li class="nav-item">
                     <a class="btn btn-accent ms-3"
                        href="https://wa.me/<?= $contact['phone'] ?>" target="_BLANK">
@@ -344,7 +363,7 @@ footer {
 </section>
 
 <!-- GALLERY -->
-<section class="py-5">
+<section class="py-5" id="gallery">
     <div class="container text-center">
         <h2 class="mb-4">Galeri Alpha Kost</h2>
         <div class="row">
