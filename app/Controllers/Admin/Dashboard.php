@@ -12,11 +12,26 @@ class Dashboard extends BaseController
     {
         $roomModel = new RoomModel();
         $testimonialModel = new TestimonialModel();
+        
+        // Hubungkan ke database untuk mengambil tabel settings
+        $db = \Config\Database::connect();
+        $settings = $db->table('settings')->get()->getResultArray();
+
+        // Mengubah format array settings agar mudah dipanggil di view
+        // Dari format baris menjadi format key => value
+        $kostSettings = [];
+        foreach ($settings as $row) {
+            $kostSettings[$row['key']] = $row['value'];
+        }
 
         $data = [
-            'title' => 'Admin Panel - Alpha Kost',
-            'rooms' => $roomModel->findAll(),
+            'title'        => 'Admin Panel - Alpha Kost',
+            'rooms'        => $roomModel->findAll(),
             'testimonials' => $testimonialModel->findAll(),
+            // Kirim data settings ke view
+            'address'      => $kostSettings['address'] ?? '',
+            'phone'        => $kostSettings['phone'] ?? '',
+            'kost_name'    => $kostSettings['kost_name'] ?? 'Alpha Kost',
         ];
 
         return view('admin/dashboard', $data);
@@ -35,21 +50,21 @@ class Dashboard extends BaseController
     }
 
     // Update Info Kost (Alamat/Kontak)
-public function updateSettings() {
-    $db = \Config\Database::connect();
-    foreach ($this->request->getPost('settings') as $key => $value) {
-        $db->table('settings')->where('key', $key)->update(['value' => $value]);
+    public function updateSettings() {
+        $db = \Config\Database::connect();
+        foreach ($this->request->getPost('settings') as $key => $value) {
+            $db->table('settings')->where('key', $key)->update(['value' => $value]);
+        }
+        return redirect()->back()->with('success', 'Profil kost diperbarui!');
     }
-    return redirect()->back()->with('success', 'Profil kost diperbarui!');
-}
 
-// Update Password Admin
-public function updatePassword() {
-    $model = new \App\Models\UserModel();
-    $newPass = $this->request->getPost('new_password');
-    $model->where('username', session()->get('username'))
-          ->set(['password' => password_hash($newPass, PASSWORD_DEFAULT)])
-          ->update();
-    return redirect()->back()->with('success', 'Password berhasil diubah!');
-}
+    // Update Password Admin
+    public function updatePassword() {
+        $model = new \App\Models\UserModel();
+        $newPass = $this->request->getPost('new_password');
+        $model->where('username', session()->get('username'))
+            ->set(['password' => password_hash($newPass, PASSWORD_DEFAULT)])
+            ->update();
+        return redirect()->back()->with('success', 'Password berhasil diubah!');
+    }
 }

@@ -35,7 +35,7 @@
                     <?php foreach ($rooms as $r) : ?>
                     <tr>
                         <form action="/admin/updateRoom/<?= $r['id'] ?>" method="post">
-                            [cite_start]<td><?= $r['room_type'] ?> [cite: 1]</td>
+                            <td><?= $r['room_type'] ?> </td>
                             <td>
                                 <input type="number" name="price" class="form-control" value="<?= (int)$r['price'] ?>">
                             </td>
@@ -57,11 +57,10 @@
         <div class="card-header bg-white"><strong>Informasi Kost</strong></div>
         <div class="card-body">
             <ul>
-                [cite_start]<li><strong>Nama:</strong> Alpha Kost [cite: 1]</li>
-                [cite_start]<li><strong>Owner:</strong> Pak Raji (+62 877-3835-0820) [cite: 3]</li>
-                <li><strong>Alamat:</strong> Jl. [cite_start]Simongan No.41, Semarang [cite: 3]</li>
+                <li><strong>Nama:</strong> Alpha Kost </li>
+                <li><strong>Owner:</strong> Pak Raji (+62 877-3835-0820)</li>
+                <li><strong>Alamat:</strong> Jl. Simongan No.41, Semarang</li>
             </ul>
-            <p class="text-muted small">*Untuk mengubah data alamat/kontak, silakan edit melalui file Controller/View utama.</p>
         </div>
     </div>
 
@@ -71,11 +70,11 @@
         <form action="/admin/updateSettings" method="post">
             <div class="mb-3">
                 <label>Alamat Kost</label>
-                [cite_start]<input type="text" name="settings[address]" class="form-control" value="<?= $address ?>"> [cite: 1, 3]
+                <input type="text" name="settings[address]" class="form-control" value="<?= $address ?>"> 
             </div>
             <div class="mb-3">
                 <label>No HP Pak Raji (Format: 628...)</label>
-                [cite_start]<input type="text" name="settings[phone]" class="form-control" value="<?= $phone ?>"> [cite: 1, 3]
+                <input type="text" name="settings[phone]" class="form-control" value="<?= $phone ?>"> 
             </div>
             <button class="btn btn-primary">Update Profil</button>
         </form>
