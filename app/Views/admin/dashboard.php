@@ -70,6 +70,7 @@
         .btn-primary {
             background: linear-gradient(135deg, #4e73df, #224abe);
             border: none;
+            padding: 12px 16px;
         }
 
         .btn-primary:hover {
@@ -114,9 +115,13 @@
                 width: 100%;
             }
         }
+
+        .bg-kuh {
+            background-color: #DBEAFE;
+        }
     </style>
 </head>
-<body>
+<body class="bg-kuh">
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm mb-4 py-4">
@@ -135,103 +140,143 @@
     </div>
 </nav>
 
-<div class="container-fluid px-3 px-lg-5">
+
+<div class="container-fluid px-3 px-lg-5 ">
+    <div class="card mb-4 p-4 shadow-sm border-0">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h4 class="text-primary">Selamat datang di Panel Admin, <?= session()->get('username') ?>!</h4>
+                <p class="text-muted">Gunakan dashboard ini untuk menjaga data kost Anda tetap up-to-date. Berikut adalah panduan singkat pengelolaannya:</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="/logout" class="btn btn-outline-danger btn-sm">Keluar (Logout)</a>
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <h6>🏠 Kelola Kamar</h6>
+                <small class="text-muted d-block">Ubah harga Kamar  agar sesuai dengan harga terbaru.</small>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h6>📞 Profil & Kontak</h6>
+                <small class="text-muted d-block">Ubah Alamat di Semarang Barat atau No HP anda agar calon penyewa bisa menghubungi Anda dengan benar.</small>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h6>⭐ Testimoni</h6>
+                <small class="text-muted d-block">Tambah ulasan dari penghuni untuk meningkatkan kepercayaan calon pelanggan pada portofolio Anda.</small>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h6>🖼️ Galeri Foto</h6>
+                <small class="text-muted d-block">Unggah foto fasilitas seperti AC, Wifi, atau KM Dalam agar visual kost Anda lebih menarik.</small>
+            </div>
+        </div>
+    </div>
     <div class="row g-4">
 
         <!-- LEFT MAIN CONTENT -->
         <div class="col-12 col-xl-8">
 
-            <!-- Flash Message -->
-            <?php if (session()->getFlashdata('success')) : ?>
-                <div class="alert alert-success alert-dismissible fade show shadow-sm section-spacing">
-                    <?= session()->getFlashdata('success') ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <!-- KAMAR -->
+            <div class="card section-spacing">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <!-- <div class="d-flex justify-content-between align-items-center mb-3 section-spacing"> -->
+                        <h4>Kelola Daftar Kamar</h4>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+                            + Tambah Kamar Baru
+                        </button>
+                    <!-- </div>    -->
                 </div>
-            <?php endif; ?>
-
-            <!-- Kelola Daftar Kamar -->
-            <div class="d-flex justify-content-between align-items-center mb-3 section-spacing">
-                <strong>Kelola Daftar Kamar</strong>
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addRoomModal">
-                    + Tambah Kamar Baru
-                </button>
-            </div>
-
-            <div class="row g-4 section-spacing">
-                <?php foreach ($rooms as $r) : ?>
-                <div class="col-md-6 col-lg-4">
-                    <form action="/admin/updateRoom/<?= $r['id'] ?>" method="post">
-                        <div class="card shadow-sm border rounded-4 p-4 h-100">
-                            <!-- Tipe Kamar + Harga -->
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Tipe Kamar</label>
-                                <input type="text" name="room_type" class="form-control" value="<?= $r['room_type'] ?>" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Harga (Rp)</label>
-                                <input type="text" name="price" class="form-control rupiah" 
-                                    value="<?= number_format((int)$r['price'], 0, ',', '.') ?>" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Pesan WA</label>
-                                <!-- <input type="text" name="wa_template" class="form-control" value="<?= $r['wa_template'] ?>" required> -->
-                                    <textarea name="wa_template" class="form-control" rows="3" required><?= $r['wa_template'] ?></textarea>
-                            </div>
-
-                            <!-- Aksi -->
-                            <div class="d-flex gap-2 flex-wrap mt-3">
-                                <button type="submit" class="btn btn-success btn-sm flex-grow-1">
-                                    Simpan
-                                </button>
-                                <a href="/admin/deleteRoom/<?= $r['id'] ?>" 
-                                class="btn btn-danger btn-sm flex-grow-1"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus tipe kamar ini?')">
-                                Hapus
-                                </a>
-                            </div>
+                <div class="card-body">
+                    <!-- Flash Message -->
+                    <?php if (session()->getFlashdata('success')) : ?>
+                        <div class="alert alert-success alert-dismissible fade show shadow-sm section-spacing">
+                            <?= session()->getFlashdata('success') ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                    </form>
-                </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endif; ?>
+
+                    <!-- Kelola Daftar Kamar -->
+                
+
+                    <div class="row g-4 section-spacing">
+                        <?php foreach ($rooms as $r) : ?>
+                        <div class="col-md-6 col-lg-4">
+                            <form action="/admin/updateRoom/<?= $r['id'] ?>" method="post">
+                                <div class="card shadow-sm border rounded-4 p-4 h-100">
+                                    <!-- Tipe Kamar + Harga -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Tipe Kamar</label>
+                                        <input type="text" name="room_type" class="form-control" value="<?= $r['room_type'] ?>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Harga (Rp)</label>
+                                        <input type="text" name="price" class="form-control rupiah" 
+                                            value="<?= number_format((int)$r['price'], 0, ',', '.') ?>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Pesan WA</label>
+                                        <!-- <input type="text" name="wa_template" class="form-control" value="<?= $r['wa_template'] ?>" required> -->
+                                            <textarea name="wa_template" class="form-control" rows="3" required><?= $r['wa_template'] ?></textarea>
+                                    </div>
+
+                                    <!-- Aksi -->
+                                    <div class="d-flex gap-2 flex-wrap mt-3">
+                                        <button type="submit" class="btn btn-success btn-sm flex-grow-1">
+                                            Simpan
+                                        </button>
+                                        <a href="/admin/deleteRoom/<?= $r['id'] ?>" 
+                                        class="btn btn-danger btn-sm flex-grow-1"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus tipe kamar ini?')">
+                                        Hapus
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
 
 
-            <!-- Modals Tambah Kamar -->
-            <div class="modal fade" id="addRoomModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <form action="/admin/storeRoom" method="post" class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Tambah Kamar Baru</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- Modals Tambah Kamar -->
+                    <div class="modal fade" id="addRoomModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="/admin/storeRoom" method="post" class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tambah Kamar Baru</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label>Nama/Tipe Kamar</label>
+                                        <input type="text" name="room_type" class="form-control" placeholder="Contoh: Luxury Room" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Harga per Bulan</label>
+                                        <input type="number" name="price" class="form-control" placeholder="1500000" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Template Pesan WhatsApp</label>
+                                        <textarea name="wa_template" class="form-control" rows="3" required>Halo Pak Raji, saya ingin memesan kamar ini...</textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Kamar</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label>Nama/Tipe Kamar</label>
-                                <input type="text" name="room_type" class="form-control" placeholder="Contoh: Luxury Room" required>
-                            </div>
-                            <div class="mb-3">
-                                <label>Harga per Bulan</label>
-                                <input type="number" name="price" class="form-control" placeholder="1500000" required>
-                            </div>
-                            <div class="mb-3">
-                                <label>Template Pesan WhatsApp</label>
-                                <textarea name="wa_template" class="form-control" rows="3" required>Halo Pak Raji, saya ingin memesan kamar ini...</textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan Kamar</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Testimoni -->
             <div class="card section-spacing">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <strong>Kelola Testimoni & Porto</strong>
+                    <h4>Kelola Testimoni & Porto</h4>
                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTestiModal">+ Tambah Testimoni</button>
                 </div>
                 <div class="card-body">
@@ -298,7 +343,7 @@
             <!-- Galeri -->
             <div class="card section-spacing">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <strong>Galeri Foto Kost</strong>
+                    <h4>Galeri Foto Kost</h4>
                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addGalleryModal">+ Tambah Foto</button>
                 </div>
                 <div class="card-body">
@@ -340,7 +385,7 @@
 
             <!-- Profil Kost -->
             <div class="card section-spacing">
-                <div class="card-header bg-white"><strong>Manajemen Profil & Kontak Kost</strong></div>
+                <div class="card-header bg-white"><h4>Manajemen Profil & Kontak Kost</h4></div>
                 <div class="card-body">
                     <form action="/admin/updateSettings" method="post">
                         <div class="row g-3">
