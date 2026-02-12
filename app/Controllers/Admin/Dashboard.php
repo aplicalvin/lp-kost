@@ -12,6 +12,7 @@ class Dashboard extends BaseController
     {
         $roomModel = new RoomModel();
         $testimonialModel = new TestimonialModel();
+        $galleryModel = new \App\Models\GalleryModel();
         
         // Hubungkan ke database untuk mengambil tabel settings
         $db = \Config\Database::connect();
@@ -33,6 +34,7 @@ class Dashboard extends BaseController
             'phone'        => $kostSettings['phone'] ?? '',
             'kost_name'    => $kostSettings['kost_name'] ?? 'Alpha Kost',
             'owner_name'   => $kostSettings['owner_name'] ?? 'Pemilik Kost',
+            'galleries'    => $galleryModel->findAll(),
         ];
 
         return view('admin/dashboard', $data);
@@ -134,5 +136,36 @@ class Dashboard extends BaseController
         $model->delete($id);
 
         return redirect()->to('/admin')->with('success', 'Testimoni berhasil dihapus!');
+    }
+
+    // Gallery
+    // Tambahkan di Dashboard.php
+
+    public function storeGallery()
+    {
+        $file = $this->request->getFile('image');
+        if ($file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move('uploads/gallery', $newName);
+
+            $model = new \App\Models\GalleryModel();
+            $model->save([
+                'image_path' => $newName,
+                'caption'    => $this->request->getPost('caption')
+            ]);
+            return redirect()->back()->with('success', 'Foto berhasil diunggah!');
+        }
+        return redirect()->back()->with('error', 'Gagal mengunggah foto.');
+    }
+
+    public function deleteGallery($id)
+    {
+        $model = new \App\Models\GalleryModel();
+        $data = $model->find($id);
+        if ($data) {
+            unlink('uploads/gallery/' . $data['image_path']); // Hapus file fisik
+            $model->delete($id);
+        }
+        return redirect()->back()->with('success', 'Foto berhasil dihapus!');
     }
 }

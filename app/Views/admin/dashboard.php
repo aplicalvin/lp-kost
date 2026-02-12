@@ -264,6 +264,43 @@
         </div>
     </div>
 
+    <!-- GALLERY -->
+    <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between">
+        <strong>Galeri Foto Kost</strong>
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addGalleryModal">+ Tambah Foto</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <?php foreach ($galleries as $g) : ?>
+                <div class="col-md-2 mb-3 text-center">
+                    <img src="/uploads/gallery/<?= $g['image_path'] ?>" class="img-thumbnail mb-1" style="height: 100px; width: 100%; object-fit: cover;">
+                    <a href="/admin/deleteGallery/<?= $g['id'] ?>" class="btn btn-danger btn-sm w-100" onclick="return confirm('Hapus foto ini?')">Hapus</a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addGalleryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/admin/storeGallery" method="post" enctype="multipart/form-data" class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Unggah Foto Baru</h5></div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label>Pilih Foto</label>
+                    <input type="file" name="image" class="form-control" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <label>Keterangan (Opsional)</label>
+                    <input type="text" name="caption" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer"><button type="submit" class="btn btn-primary">Unggah</button></div>
+        </form>
+    </div>
+</div>
+
     <!-- Keamanan -->
     <div class="card shadow-sm border-0">
         <div class="card-header text-danger">

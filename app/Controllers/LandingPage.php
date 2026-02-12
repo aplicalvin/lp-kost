@@ -12,6 +12,7 @@ class LandingPage extends BaseController
     {
         $roomModel = new \App\Models\RoomModel();
         $testimonialModel = new \App\Models\TestimonialModel();
+        $galleryModel = new \App\Models\GalleryModel();
 
         $data = [
             'title' => 'Alpha Kost - Hunian Nyaman di Semarang',
@@ -22,7 +23,8 @@ class LandingPage extends BaseController
                 'owner' => 'Pak Raji', 
                 'phone' => '6287738350820', 
                 'address' => 'Jl. Simongan Jl. Pamularsih Buntu No.41, Semarang'
-            ]
+            ],
+            'galleries' => $galleryModel->findAll(),
         ];
 
         return view('landing_page', $data);

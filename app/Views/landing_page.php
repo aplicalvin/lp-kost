@@ -343,6 +343,25 @@ footer {
     </div>
 </section>
 
+<!-- GALLERY -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Galeri Alpha Kost</h2>
+        <div class="row">
+            <?php foreach($galleries as $g): ?>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card border-0 shadow-sm">
+                        <img src="/uploads/gallery/<?= $g['image_path'] ?>" class="card-img-top rounded" alt="<?= $g['caption'] ?>" style="height: 200px; object-fit: cover;">
+                        <?php if($g['caption']): ?>
+                            <div class="card-body p-2"><small class="text-muted"><?= $g['caption'] ?></small></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
 <section class="map-section text-center py-5">
     <div class="container">
         <h2>Lokasi Kami</h2>

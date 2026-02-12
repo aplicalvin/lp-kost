@@ -26,9 +26,12 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
     $routes->get('deleteRoom/(:num)', 'Admin\Dashboard::deleteRoom/$1');
     $routes->post('updateSettings', 'Admin\Dashboard::updateSettings');
     $routes->post('updatePassword', 'Admin\Dashboard::updatePassword');
+    $routes->post('storeGallery', 'Admin\Dashboard::storeGallery');
+    $routes->get('deleteGallery/(:num)', 'Admin\Dashboard::deleteGallery/$1');
 
     $routes->post('storeTestimonial', 'Admin\Dashboard::storeTestimonial');
     $routes->get('deleteTestimonial/(:num)', 'Admin\Dashboard::deleteTestimonial/$1');
+
 
    
 });
