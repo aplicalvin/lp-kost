@@ -37,4 +37,12 @@ jobs:
             **/.github/**
             **/node_modules/**
             **/tests/**
+            **/writable/cache/**
+            **/writable/debugbar/**
+            **/writable/logs/**
+            **/writable/session/**
             **/.env
+            **/vendor/**
+            **/spark
+            **/phpunit.xml
+            **/README.md
