@@ -32,30 +32,77 @@ class Dashboard extends BaseController
             'address'      => $kostSettings['address'] ?? '',
             'phone'        => $kostSettings['phone'] ?? '',
             'kost_name'    => $kostSettings['kost_name'] ?? 'Alpha Kost',
+            'owner_name'   => $kostSettings['owner_name'] ?? 'Pemilik Kost',
         ];
 
         return view('admin/dashboard', $data);
     }
 
+    // Fungsi untuk menyimpan kamar baru
+    public function storeRoom()
+    {
+        $roomModel = new \App\Models\RoomModel();
+        $price = str_replace('.', '', $this->request->getPost('price'));
+
+        
+        $roomModel->save([
+            'room_type'   => $this->request->getPost('room_type'),
+            // 'price'       => $this->request->getPost('price'),
+            // 'price' = str_replace('.', '', $this->request->getPost('price')),
+            'price'       => $price,
+            'wa_template' => $this->request->getPost('wa_template')
+        ]);
+
+        return redirect()->to('/admin')->with('success', 'Kamar baru berhasil ditambahkan!');
+    }
+
+    // Update fungsi yang sudah ada agar tipe kamar bisa diubah
     public function updateRoom($id)
     {
-        $roomModel = new RoomModel();
-        
+        $roomModel = new \App\Models\RoomModel();
+        $price = str_replace('.', '', $this->request->getPost('price'));
+
         $roomModel->update($id, [
-            'price'       => $this->request->getPost('price'),
-            'wa_template' => $this->request->getPost('wa_template')
+            'room_type'   => $this->request->getPost('room_type'), // Sekarang bisa di-edit
+            // 'price'       => $this->request->getPost('price'),
+            'price'       => $price,
+            'wa_template' => $this->request->getPost('wa_template'),
         ]);
 
         return redirect()->to('/admin')->with('success', 'Data kamar berhasil diperbarui!');
     }
 
-    // Update Info Kost (Alamat/Kontak)
-    public function updateSettings() {
-        $db = \Config\Database::connect();
-        foreach ($this->request->getPost('settings') as $key => $value) {
-            $db->table('settings')->where('key', $key)->update(['value' => $value]);
+    // app/Controllers/Admin/Dashboard.php
+
+    public function deleteRoom($id)
+    {
+        $roomModel = new \App\Models\RoomModel();
+        
+        // Cek apakah data ada sebelum dihapus
+        if ($roomModel->find($id)) {
+            $roomModel->delete($id);
+            return redirect()->to('/admin')->with('success', 'Kamar berhasil dihapus!');
         }
-        return redirect()->back()->with('success', 'Profil kost diperbarui!');
+
+        return redirect()->to('/admin')->with('error', 'Data tidak ditemukan.');
+    }
+
+    // Update Info Kost (Alamat/Kontak)
+    public function updateSettings()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('settings');
+
+        // Mengambil semua data dari form settings[]
+        $settings = $this->request->getPost('settings');
+
+        if ($settings) {
+            foreach ($settings as $key => $value) {
+                $builder->where('key', $key)->update(['value' => $value]);
+            }
+        }
+
+        return redirect()->to('/admin')->with('success', 'Informasi kost berhasil diperbarui!');
     }
 
     // Update Password Admin
@@ -66,5 +113,26 @@ class Dashboard extends BaseController
             ->set(['password' => password_hash($newPass, PASSWORD_DEFAULT)])
             ->update();
         return redirect()->back()->with('success', 'Password berhasil diubah!');
+    }
+
+    public function storeTestimonial()
+    {
+        $model = new \App\Models\TestimonialModel();
+        
+        $model->save([
+            'name'    => $this->request->getPost('name'),
+            'content' => $this->request->getPost('content'),
+            'stars'   => $this->request->getPost('stars'),
+        ]);
+
+        return redirect()->to('/admin')->with('success', 'Testimoni berhasil ditambahkan!');
+    }
+
+    public function deleteTestimonial($id)
+    {
+        $model = new \App\Models\TestimonialModel();
+        $model->delete($id);
+
+        return redirect()->to('/admin')->with('success', 'Testimoni berhasil dihapus!');
     }
 }

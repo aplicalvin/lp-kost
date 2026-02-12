@@ -324,12 +324,20 @@ footer {
         <h2 class="text-center">Apa Kata Mereka?</h2>
         <div class="row mt-4">
             <?php foreach($testimonials as $t): ?>
-            <div class="col-md-4">
-                <blockquote class="blockquote">
-                    <p class="fst-italic">"<?= $t['content'] ?>"</p>
-                    <footer class="blockquote-footer bg-white mt-2"><?= $t['name'] ?></footer>
-                </blockquote>
-            </div>
+                <div class="col-md-4 mb-4">
+                    <blockquote class="blockquote h-100 p-3 shadow-sm border-start border-primary border-4">
+                        <div class="mb-2 text-warning">
+                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                <?php if($i <= $t['stars']): ?>
+                                    ★ <?php else: ?>
+                                    <span class="text-muted">☆</span> <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
+                        
+                        <p class="fst-italic" style="font-size: 0.9rem;">"<?= $t['content'] ?>"</p>
+                        <footer class="blockquote-footer bg-white mt-2"><strong><?= $t['name'] ?></strong></footer>
+                    </blockquote>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>

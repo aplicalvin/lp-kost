@@ -21,12 +21,14 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
     
     // Kelola Profil Kost & Akun (Berdasarkan data Alpha Kost)
+    $routes->post('storeRoom', 'Admin\Dashboard::storeRoom'); // Tambahkan ini
     $routes->post('updateRoom/(:num)', 'Admin\Dashboard::updateRoom/$1');
+    $routes->get('deleteRoom/(:num)', 'Admin\Dashboard::deleteRoom/$1');
     $routes->post('updateSettings', 'Admin\Dashboard::updateSettings');
     $routes->post('updatePassword', 'Admin\Dashboard::updatePassword');
 
-    // Kelola Testimoni (Penting untuk portofolio)
-    $routes->get('testimonials', 'Admin\Testimonial::index');
-    $routes->post('testimonials/store', 'Admin\Testimonial::store');
-    $routes->get('testimonials/delete/(:num)', 'Admin\Testimonial::delete/$1');
+    $routes->post('storeTestimonial', 'Admin\Dashboard::storeTestimonial');
+    $routes->get('deleteTestimonial/(:num)', 'Admin\Dashboard::deleteTestimonial/$1');
+
+   
 });
