@@ -2,7 +2,7 @@ name: Deploy CodeIgniter 4 (Development)
 
 on:
   push:
-    branches: [development]
+    branches: [main]
 
 jobs:
   deploy:
