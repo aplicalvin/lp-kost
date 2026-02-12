@@ -1,69 +1,142 @@
-# CodeIgniter 4 Application Starter
+# Alpha Kost - Landing Page & Admin Panel (CI4)
 
-## What is CodeIgniter?
+Aplikasi Landing Page dinamis untuk manajemen kost yang dibangun dengan **CodeIgniter 4**. Aplikasi ini memungkinkan admin untuk mengelola data kamar, profil kost, testimoni, dan galeri foto secara real-time. 
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Fitur Utama
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+* 
+**Landing Page Dinamis**: Menampilkan informasi kamar, fasilitas, dan lokasi Google Maps secara otomatis. 
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+* 
+**Direct WhatsApp**: Integrasi pesan otomatis ke Pak Raji untuk pemesanan kamar. 
 
-## Installation & updates
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+* 
+**Admin Panel Terproteksi**: Login sistem untuk mengelola konten website. 
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
 
-## Setup
+* **Full CRUD**: Manajemen Kamar, Testimoni, dan Galeri Foto (Upload Gambar).
+* 
+**Editable Settings**: Ubah nama kost, alamat, dan nomor HP langsung dari dashboard. 
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
 
-## Important Change with index.php
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+---
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Langkah Instalasi
 
-**Please** read the user guide for a better explanation of how CI4 works!
+Ikuti urutan langkah di bawah ini untuk menjalankan proyek di lingkungan lokal Anda:
 
-## Repository Management
+### 1. Clone Repositori
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+Buka terminal atau CMD, lalu jalankan perintah berikut:
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+```bash
+git clone https://github.com/username/002-catalog-kost.git
+cd 002-catalog-kost
 
-## Server Requirements
+```
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+### 2. Instalasi Dependency
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Pastikan Anda sudah menginstal **Composer**, lalu jalankan:
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+```bash
+composer install
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+### 3. Konfigurasi Environment (.env)
+
+Salin file `env` menjadi `.env`:
+
+```bash
+cp env .env
+
+```
+
+Buka file `.env` dan sesuaikan pengaturan database Anda:
+
+```ini
+database.default.hostname = localhost
+database.default.database = nama_db_anda
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+
+```
+
+### 4. Persiapan Folder Upload
+
+Buat folder untuk menyimpan gambar galeri agar fitur upload berjalan lancar:
+
+```bash
+mkdir -p public/uploads/gallery
+
+```
+
+### 5. Menjalankan Migrasi Database
+
+Buat struktur tabel (Kamar, Testimoni, Settings, Users, dan Gallery) dengan satu perintah:
+
+```bash
+php spark migrate
+
+```
+
+### 6. Menjalankan Seeder (Data Default)
+
+Isi database dengan data awal **Alpha Kost** (termasuk akun admin default): 
+
+```bash
+php spark db:seed KostSeeder
+php spark db:seed AdminSeeder
+
+```
+
+### 7. Jalankan Server
+
+Jalankan aplikasi menggunakan server bawaan CodeIgniter:
+
+```bash
+php spark serve
+
+```
+
+Akses aplikasi di: `http://localhost:8080`
+
+---
+
+## Informasi Akun Admin Default
+
+Gunakan akun berikut untuk masuk ke Dashboard Admin (`/login`):
+
+* **Username**: `admin`
+* **Password**: `password`
+
+> **Catatan**: Segera ubah password Anda di menu "Keamanan Akun" pada Dashboard Admin setelah berhasil login.
+
+---
+
+## Detail Kontak Proyek (Alpha Kost)
+
+* 
+**Nama Kost**: Alpha Kost 
+
+
+* 
+**Owner**: Pak Raji 
+
+
+* **Alamat**: Jl. Simongan Jl. Pamularsih Buntu No.41, Semarang Barat 
+
+
+* 
+**WhatsApp**: +62 877-3835-0820 
+
+
+
+---
+
+**Apakah ada bagian lain dari dokumentasi ini yang ingin Anda tambahkan, seperti daftar teknologi (Bootstrap, PHP 8, dll)?**
